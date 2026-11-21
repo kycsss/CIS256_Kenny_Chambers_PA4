@@ -2,6 +2,7 @@
 # CIS256 FALL 2026
 # Programming Assignment 4
 
+import pytest
 import guess_the_word
 
 # Plays game with the fixed word and scripted guesses while returning printed output.
@@ -14,7 +15,7 @@ def run(monkeypatch, capsys, word, guesses):
 
 # Selected word from the predefined list test.
 def test_word_from_list(monkeypatch):
-    received: []
+    received = []
     monkeypatch.setattr(guess_the_word.random, "choice", lambda seq: received.append(seq) or seq[0])
     letters = iter("abcdefghijklmnopqrstuvwxyz")
     monkeypatch.setattr("builtins.input", lambda _prompt="": next(letters))
