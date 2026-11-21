@@ -18,3 +18,8 @@ def test_word_from_list(monkeypatch):
     monkeypatch.setattr("builtins.input", lambda _prompt:"": next(letters))
     guess_the_word.play_game()
     assert received == [guess_the_word.WORDS]
+
+def test_incorrect_guess(monkeypatch, capsys):
+    out = run(monkeypatch, capsys, "retro", ["z", "t", "r", "o", "e"])
+    assert "INCORRECT!" in out
+    assert "Wrong guesses: 1/7" in out
