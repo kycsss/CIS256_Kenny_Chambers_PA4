@@ -11,3 +11,10 @@ def run(monkeypatch, capsys, word, guesses):
     guess_the_word.play_game()
     return capsys.readouterr().out
 
+def test_word_from_list(monkeypatch):
+    received: []
+    monkeypatch.setattr(guess_the_word.random, "choice", lambda seq: received.append(seq) or seq[0])
+    letters = iter("abcdefghijklmnopqrstuvwxyz")
+    monkeypatch.setattr("builtins.input", lambda _prompt:"": next(letters))
+    guess_the_word.play_game()
+    assert received == [guess_the_word.WORDS]
